@@ -1,0 +1,144 @@
+<div class="share">
+  <a href="{url}" class="btnTw" title="Twitter"><span class="twCount">0</span></a>
+  <a href="{url}" class="btnFb" title="Facebook"><span class="fbCount">0</span></a>
+  <a href="{url}" class="btnPr" title="Pinterest"><span class="prCount">0</span></a>
+  <a href="{url}" class="btnLi" title="LinkedIn"><span class="liCount">0</span></a>
+  <a href="{url}" class="btnDl" title="Delicious"><span class="dlCount">0</span></a>
+</div>
+
+
+
+<style>
+    body{
+  font-family: sans-serif;
+  background: #2E2B33;
+}
+
+.share{
+
+  top: 50%;
+
+  text-align: center;
+
+}
+
+.share a span{
+  font-weight: bold;
+  display: block;
+  color: white;
+  text-align: right;
+  min-width: 24px;
+}
+
+.share a{
+  text-decoration: none;
+  padding: 0px 4px 0px 24px;
+  line-height: 18px;
+  min-height: 18px;
+  display: inline-block;
+  border-radius: 2px;
+  margin: 7px 20px 2px 20px;
+  background-size: 18px;
+  background-repeat: no-repeat;
+  box-shadow: 0px 1px 0px rgba(0,0,0,0.1),inset 0px 1px 0px rgba(255,255,255,0.05)
+}
+
+/*icon credits: iconfinder.com*/
+.btnTw{
+  background-color: #2DAAE1;
+  background-image: url('https://cdn1.iconfinder.com/data/icons/somacro___dpi_social_media_icons_by_vervex-dfjq/128/twitter.png');
+}
+
+
+.btnFb{
+  background-color: #3B5998;
+  background-image:url('https://cdn1.iconfinder.com/data/icons/metro-ui-dock/128/Facebook_alt_1.png');
+}
+
+.btnPr{
+  background-color: #CA2128;
+  background-image:url('https://cdn1.iconfinder.com/data/icons/wbits-pinterest/64/pinterest-icon-square-red.png');
+}
+
+.btnLi{
+  background-color: #1783BC;
+  background-image:url('https://cdn1.iconfinder.com/data/icons/social-icon-pack-by-citni/48/Linkedin.png');
+}
+
+.btnDl{
+  background-color: #2873CC;
+  background-image:url('https://cdn1.iconfinder.com/data/icons/freebie%3A-social-media-icons/64/delicious.png');
+}
+
+.btnBu{
+  background-color: #f4f4f4;
+  background-image:url('http://bufferapp.com/images/press/logo-icon.png');
+  background-size: 14px !important;
+  background-position: 2px center
+}
+
+.share a span.buCount{
+  color: black;
+}
+
+
+    
+    
+    
+</style>
+
+
+<script>
+    
+    
+(function() {
+  var countUp, setCount, url;
+
+  url = "http://simpyll.com{{page.url}}";
+
+  $.getJSON("http://urls.api.twitter.com/1/urls/count.json?url=" + url + "&callback=?", function(json) {
+    return setCount($(".twCount"), json.count);
+  });
+  
+  $.getJSON("http://graph.facebook.com/" + url + "&callback=?", function(json) {
+    return setCount($(".fbCount"), json.total);
+  });
+ 
+  $.getJSON("http://api.pinterest.com/v1/urls/count.json?url=" + url + "&callback=?", function(json) {
+    return setCount($(".prCount"), json.count);
+  });
+
+  $.getJSON("http://www.linkedin.com/countserv/count/share?url=" + url + "&callback=?", function(json) {
+    return setCount($(".liCount"), json.count);
+  });
+
+  $.getJSON("http://feeds.delicious.com/v2/json/urlinfo/data?url=" + url + "&callback=?", function(json) {
+    return setCount($(".dlCount"), json[0].total_posts);
+  });
+
+  countUp = function($item) {
+    return setTimeout(function() {
+      var current, newCount, target;
+      current = $item.attr("data-current-count") * 1;
+      target = $item.attr("data-target-count") * 1;
+      newCount = current + Math.ceil((target - current) / 2);
+      $item.attr("data-current-count", newCount);
+      $item.html(newCount);
+      if (newCount < target) {
+        return countUp($item);
+      }
+    }, 100);
+  };
+
+  setCount = function($item, count) {
+    if (count == null) {
+      count = null;
+    }
+    $item.attr("data-target-count", count);
+    $item.attr("data-current-count", 0);
+    return countUp($item);
+  };
+
+}).call(this);
+
+</script>

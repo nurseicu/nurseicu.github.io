@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <meta charset="utf-8">    
+        
+        <title>NurseICU.com</title>
+        
+        <link rel="icon" type="image/png" href="/favicon.png">
+        <link rel="stylesheet" href="/assets/css/style.css">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+		<script type="text/javascript" src="/assets/js/headroom.min.js"></script>   
+        <script type="text/javascript" src="/assets/js/search.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script type="text/javascript" src="/assets/js/js.js"></script>
+        
+    </head>
+
+<header>
+  <nav class="main-nav">
+    <div class="grid">
+      <ul>
+		<li>
+		  <a href="/">NurseICU.com</a>
+		  <a href="/forum.html">Forum</a>
+		  <a class="button">Share this page</a>
+		</li> 
+      </ul>
+    </div>        
+    <aside class="alert success">
+
+        <div class="share">
+  <a href="https://twitter.com/share" class="btnTw" title="Twitter"><span class="twCount">0</span></a>
+  <a href="{url}" class="btnFb" title="Facebook"><span class="fbCount">0</span></a>
+  <a href="{url}" class="btnPr" title="Pinterest"><span class="prCount">0</span></a>
+  <a href="{url}" class="btnLi" title="LinkedIn"><span class="liCount">0</span></a>
+  <a href="{url}" class="btnDl" title="Delicious"><span class="dlCount">0</span></a>
+</div>
+
+
+<script type="text/javascript">
+window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
+
+<style>
+    body{
+  font-family: sans-serif;
+  background: #2E2B33;
+}
+
+.share{
+
+  top: 50%;
+
+  text-align: center;
+
+}
+
+.share a span{
+  font-weight: bold;
+  display: block;
+  color: white;
+  text-align: right;
+  min-width: 24px;
+}
+
+.share a{
+  text-decoration: none;
+  padding: 0px 4px 0px 24px;
+  line-height: 18px;
+  display: inline-block;
+  border-radius: 2px;
+  margin: 7px 20px 2px 20px;
+  background-size: 18px;
+  background-repeat: no-repeat;
+  box-shadow: 0px 1px 0px rgba(0,0,0,0.1),inset 0px 1px 0px rgba(255,255,255,0.05)
+}
+
+/*icon credits: iconfinder.com*/
+.btnTw{
+  background-color: #2DAAE1;
+  background-image: url('https://cdn1.iconfinder.com/data/icons/somacro___dpi_social_media_icons_by_vervex-dfjq/128/twitter.png');
+}
+
+
+.btnFb{
+  background-color: #3B5998;
+  background-image:url('https://cdn1.iconfinder.com/data/icons/metro-ui-dock/128/Facebook_alt_1.png');
+}
+
+.btnPr{
+  background-color: #CA2128;
+  background-image:url('https://cdn1.iconfinder.com/data/icons/wbits-pinterest/64/pinterest-icon-square-red.png');
+}
+
+.btnLi{
+  background-color: #1783BC;
+  background-image:url('https://cdn1.iconfinder.com/data/icons/social-icon-pack-by-citni/48/Linkedin.png');
+}
+
+.btnDl{
+  background-color: #2873CC;
+  background-image:url('https://cdn1.iconfinder.com/data/icons/freebie%3A-social-media-icons/64/delicious.png');
+}
+
+.btnBu{
+  background-color: #f4f4f4;
+  background-image:url('http://bufferapp.com/images/press/logo-icon.png');
+  background-size: 14px !important;
+  background-position: 2px center
+}
+
+.share a span.buCount{
+  color: black;
+}
+
+
+    
+    
+    
+</style>
+
+
+<script>
+    
+    
+(function() {
+  var countUp, setCount, url;
+
+  url = "http://nurseicu.com";
+
+  $.getJSON("http://urls.api.twitter.com/1/urls/count.json?url=" + url + "&callback=?", function(json) {
+    return setCount($(".twCount"), json.count);
+  });
+
+  $.getJSON("http://graph.facebook.com/" + url + "&callback=?", function(json) {
+    return setCount($(".fbCount"), json.shares);
+  });
+
+  $.getJSON("http://api.pinterest.com/v1/urls/count.json?url=" + url + "&callback=?", function(json) {
+    return setCount($(".prCount"), json.count);
+  });
+
+  $.getJSON("http://www.linkedin.com/countserv/count/share?url=" + url + "&callback=?", function(json) {
+    return setCount($(".liCount"), json.count);
+  });
+
+  $.getJSON("http://feeds.delicious.com/v2/json/urlinfo/data?url=" + url + "&callback=?", function(json) {
+    return setCount($(".dlCount"), json[0].total_posts);
+  });
+
+  countUp = function($item) {
+    return setTimeout(function() {
+      var current, newCount, target;
+      current = $item.attr("data-current-count") * 1;
+      target = $item.attr("data-target-count") * 1;
+      newCount = current + Math.ceil((target - current) / 2);
+      $item.attr("data-current-count", newCount);
+      $item.html(newCount);
+      if (newCount < target) {
+        return countUp($item);
+      }
+    }, 100);
+  };
+
+  setCount = function($item, count) {
+    if (count == null) {
+      count = null;
+    }
+    $item.attr("data-target-count", count);
+    $item.attr("data-current-count", 0);
+    return countUp($item);
+  };
+
+}).call(this);
+
+</script>
+     </aside>
+<script>   
+    $('.button').click(function(){
+    $('.alert').slideToggle();
+});
+
+$('span.close').click(function(){
+    $('.alert').slideToggle();
+});
+
+</script>
+
+  </nav>
+</header> 
+
+<body class="wrap">
+        
+
+
+
+
+<section class="content">
+  <div id="home" class="grid">
+    <div class="unit whole single-post-excerpt">
+      <div class="container list-article">  
+
+
+<h1 id="header" class="text-primary">Intensive Care Nursing</h1>
+  
+
+<div class="container list-article">
+  <div class="btn-group pull-right" id="switch-view">
+    <button class="btn btn-primary">
+      <span class="icon-th-large"></span>
+    </button>
+    <button class="btn btn-primary active">
+      <span class="icon-th-list"></span>
+    </button>
+  </div>
+  <div class="clearfix"></div>
+        
+        
+          <div class="row">
+            <div class="col-xs-12 article-wrapper">
+              <article>
+                <a href="/forum.html" class="more">more</a>
+                <div class="img-wrapper"><img src="http://lorempixel.com/150/150/city" alt="" /></div>
+                <h1>Forum</h1>
+                <p>Connect with other critical care nurses.<p>
+              </article>
+            </div>
+            <div class="col-xs-12 article-wrapper">
+              <article>
+                <a href="/blog" class="more">more</a>
+                <div class="img-wrapper"><img src="http://lorempixel.com/150/150/technics" alt="" /></div>
+                <h1>Blog</h1>
+                <p>Linux, Web Design, and Security</p>
+              </article>
+            </div>
+            <div class="col-xs-12 article-wrapper">
+              <article>
+                <a href="/about" class="more">more</a>
+                <div class="img-wrapper"><img src="http://lorempixel.com/150/150/food" alt="" /></div>
+                <h1>About</h1>
+                <p>An approach to diet, exercise, and lifestyle that actually makes sense.</p>
+              </article>
+            </div>
+            <div class="col-xs-12 article-wrapper">
+              <article>
+                <a href="/nursing" class="more">more</a>
+                <div class="img-wrapper"><img src="http://lorempixel.com/150/150/business" alt="" /></div>
+                <h1>Nursing</h1>
+                <p>ICU, NCLEX Questions, Study Materials<p>
+              </article>
+            </div>
+            <div class="col-xs-12 article-wrapper">
+              <article>
+                <a href="/minimalism" class="more">more</a>
+                <div class="img-wrapper"><img src="http://lorempixel.com/150/150/abstract" alt="" /></div>
+                <h1>Minimalism</h1>
+                <p>Simple Freedom</p>
+              </article>
+            </div>
+            <div class="col-xs-12 article-wrapper">
+              <article>
+                <a href="/philosophy" class="more">more</a>
+                <div class="img-wrapper"><img src="http://lorempixel.com/150/150/nature" alt="" /></div>
+                <h1>Philosophy</h1>
+                <p>Lets talk</p>
+              </article>
+            </div>
+          </div>
+        
+    
+  </div>
+    </div>
+  </div>
+</section>
+  
+
+
+<script>
+var menu, headroom;
+function stickyHeader(){
+  menu = document.querySelector('.main-nav');
+  var headroom = new Headroom(menu);
+  headroom.init();
+}
+window.onload = stickyHeader;
+</script>
+
+
+
+
+    </body>
+    
+    <section id='frame'>
+          <ul class='drop top'> 
+            <li class='google'></li>
+            <li class='facebook'></li>
+            <li class='twitter'></li>
+            <li class='tumblr'></li>
+            <li class='pinterest'></li>
+            <li class='linkedin'></li>
+            <li class='instagram'></li>
+            <li class='stumbleupon'></li>
+            <li class='dribble'></li>
+            <li class='github'></li>
+            <li class='email'></li>
+          </ul>
+        </section>
+</html>

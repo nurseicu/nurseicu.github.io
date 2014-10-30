@@ -1,0 +1,41 @@
+title: Nurse ICU
+disqus: nurseicu
+
+ga_id: UA-54565266-1
+ga_domain: nurseicu.com
+
+exclude: ["nbproject", ".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
+highlighter: pygments
+
+tagline: Site Tagline
+author :
+  name : Name Lastname
+  email : blah@email.test
+  github : username
+  twitter : username
+  feedburner : feedname
+
+production_url : nurseicu.com
+
+JB :
+  version : 0.3.0
+  BASE_PATH : true
+  ASSET_PATH : false
+
+archive_path: /archive.html
+categories_path : /categories.html
+tags_path : /tags.html
+atom_path : /atom.xml
+rss_path : /rss.xml
+
+sharing :
+  provider : false
+
+fbc-comments-firebase: https://nurseicu.firebaseio.com/
+email: nurseicu.com@gmail.com
+baseurl: ""
+url: "http://nurseicu.com"
+twitter_username: IntensiveCareRN
+github_username:  nurseicu
+google_username:  nurseicu
+facebook_username:  nurseicu

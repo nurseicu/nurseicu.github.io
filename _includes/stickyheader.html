@@ -1,0 +1,9 @@
+<script>
+var menu, headroom;
+function stickyHeader(){
+  menu = document.querySelector('.main-nav');
+  var headroom = new Headroom(menu);
+  headroom.init();
+}
+window.onload = stickyHeader;
+</script>
